@@ -1,0 +1,55 @@
+# Readme - UGR Prozess
+
+## UGR Berechnungsprozess
+
+In diesem Dokument werden die einzelnen Schritte beschrieben, um die
+UGR-Werte von Leuchtenprodukten zu berechnen.
+
+### Voraussetzungen und verwendete Werkzeuge
+
+- myview DataManager
+
+  - CSV-Export: UGR: Pflege mit EulumDB
+
+- Relux EulumDb
+
+- Microsoft Access
+
+## Myview DataManager Export
+
+1.  Im PIM den CSV Export mit der Vorlage: `UGR: Pflege mit EulumDB`
+    verwenden, um LDTs und die csv-Datei für den Reimport runterzuladen.
+
+## LDT import in Relux EulumDB
+
+1.  In Relux EulumDB mit einer Relux Datenbank werden die vorhandenen
+    Leuchteneinträge gelöscht.
+2.  In EulumDB: `Edit –> Import LDC's`
+3.  Import from Folder: Ordner mit den Einzel-LDT-Dateien auswählen und
+    importieren (Import articles). Anschließend EulumDV schließen
+4.  Mit Microsoft Access wird die Relux-Datenbank geöffnet. Dabei wird
+    unter dem Tabellenreiter **“Bestückung”** und der Spalte
+    **“UGruppe2”** den Wert **“10300”** für alle Leuchten eingetragen.
+5.  In EulumDB. Export der UGR-Werte mit Artikelnummern:
+    1.  Markierung aller Leuchtenartikel
+    2.  `File –> Export –> LDC`
+6.  UGR-Werte sind im `filelist_ldt.csv` zu finden
+
+## Vorbereitungen für den Import ins myview DataManager
+
+- Ablegen der `CmCSVExport.csv` und `filelist_ldt.csv` unter `0_data` im
+  R-Projektordner
+
+  - `CmCSVExport.csv` wurde durch den DataManager CSV Export erzeugt.
+
+  - `filelist_ldt.csv` kommt aus dem Export von EulumDV
+
+- Ausführung des R-Skripts `01_assign_ugr2csvexport.R`, um die
+  Import-Datei `myview_ugr_import.csv` zu generieren
+
+## Import ins myview DataManager
+
+- `myview_ugr_import.csv` über CSV-Import Funktion importieren
+
+- Importierte UGR-Werte im DataManager auf Plausibilität
+  stichprobenartig kontrollieren.
