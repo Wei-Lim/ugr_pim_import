@@ -9,7 +9,7 @@ myview_tbl <- read.delim(
 	header           = TRUE,
 	sep              = "\t",
 	fileEncoding     = "UTF-16LE",
-	skip             = 28,
+	skip             = 29,
 	stringsAsFactors = F,
 	colClasses       = "character"
 ) %>% 
@@ -39,7 +39,7 @@ output_tbl <- myview_tbl %>%
 		.fns  = ~str_replace_all(., ".", "")
 		)) %>% 
 	select(-Blendbewertung.UGR..quer., -Blendbewertung.UGR..stirnseitig.) %>% 
-	left_join(filelist_ldt_tbl, by = c("Artikelnummer.PRACHT" = "artno")) %>% 
+	left_join(filelist_ldt_tbl, by = c("Artikelnummer.PRACHT..proxy." = "artno")) %>% 
 	relocate(ugr_c0,  .before = Blendbewertung.UGR..quer..Unit.) %>% 
 	relocate(ugr_c90, .before = Blendbewertung.UGR..stirnseitig..Unit.) %>% 
 
@@ -56,7 +56,7 @@ myview_lines <- stringi::stri_read_lines(
 ) 
 
 # Removing data rows
-myview_header <- myview_lines[1:29]
+myview_header <- myview_lines[1:30]
 
 # Writing csv-file for import into myview
 stringi::stri_write_lines(
